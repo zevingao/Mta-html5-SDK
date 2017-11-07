@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "af9513673f8e2c97ad7c6ac282ba2009",
-    "content-hash": "afbe96b713f5040d45d08dfb0bb799cc",
+    "hash": "898cbe55d0ff5a0451edcfed7b01efa9",
+    "content-hash": "9d407844cab3d2a350951f36f6814954",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -74,23 +74,23 @@
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "dev-master",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "e9cdab6ff93ff789b5b599326c727f51d10893a6"
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/guzzle/promises/e9cdab6ff93ff789b5b599326c727f51d10893a6.zip",
-                "reference": "e9cdab6ff93ff789b5b599326c727f51d10893a6",
+                "url": "https://files.phpcomposer.com/files/guzzle/promises/a59da6cf61d80060647ff4d3eb2c03a2bc694646.zip",
+                "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.36"
+                "phpunit/phpunit": "^4.0"
             },
             "type": "library",
             "extra": {
@@ -121,20 +121,20 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2017-10-06 12:25:00"
+            "time": "2016-12-20 10:07:11"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "dev-master",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "d2537c86fa8b004c29e9b9f5e10028f0a29df101"
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/guzzle/psr7/d2537c86fa8b004c29e9b9f5e10028f0a29df101.zip",
-                "reference": "d2537c86fa8b004c29e9b9f5e10028f0a29df101",
+                "url": "https://files.phpcomposer.com/files/guzzle/psr7/f5b8a8512e2b58b0071a7280e39f14f72e05d87c.zip",
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
                 "shasum": ""
             },
             "require": {
@@ -186,11 +186,11 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-10-07 03:19:56"
+            "time": "2017-03-20 17:10:46"
         },
         {
             "name": "psr/http-message",
-            "version": "dev-master",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
@@ -241,7 +241,7 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
