@@ -1,0 +1,22 @@
+{
+    "name": "loliko/mta-html5-sdk",
+    "description": "腾讯mta平台html5 Api接口sdk",
+    "type": "library",
+    "keywords": ["mta","sdk","html5"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "loliko",
+            "email": "kaimissgao@qqdyw.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload":{
+        "psr-4":{
+            "Loliko\\":"src"
+        }
+    }
+}
