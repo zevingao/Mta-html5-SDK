@@ -1,4 +1,5 @@
 test.php
 vendor/*
-.idea/*
+.idea
 test/*
+.gitignore
