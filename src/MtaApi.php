@@ -28,6 +28,7 @@
  */
 
 namespace Loliko;
+
 use GuzzleHttp;
 
 class MtaApi
@@ -37,6 +38,8 @@ class MtaApi
 
     // mta平台h5应用secret
     private $_secret_key;
+
+    private static $_instance = null;
 
     //http请求对象
     private $_httpClient;
@@ -104,11 +107,20 @@ class MtaApi
      * @param $app_id
      * @param $secret_key
      */
-    public function __construct($app_id , $secret_key)
+    public function __construct($app_id, $secret_key)
     {
-        $this->_app_id = $app_id;
+        $this->_app_id     = $app_id;
         $this->_secret_key = $secret_key;
         $this->_httpClient = new GuzzleHttp\Client();
+    }
+
+    //获取实例
+    public static function getInstance($app_id = '', $secret_key = '')
+    {
+        if (!self::$_instance) {
+            self::$_instance = new self($app_id, $secret_key);
+        }
+        return self::$_instance;
     }
 
     /**
@@ -118,17 +130,17 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function historyData($startDate , $endDate , $idx)
+    public function historyData($startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_CORE_API , $params);
+        return $this->_request(self::CTR_CORE_API, $params);
     }
 
 
@@ -141,11 +153,11 @@ class MtaApi
     {
         $params = [
             'app_id' => $this->_app_id,
-            'idx' => $idx,
+            'idx'    => $idx,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::GET_BY_HOUR_API , $params);
+        return $this->_request(self::GET_BY_HOUR_API, $params);
     }
 
     /**
@@ -159,7 +171,7 @@ class MtaApi
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::HEART_BEAT_API , $params);
+        return $this->_request(self::HEART_BEAT_API, $params);
     }
 
     /**
@@ -171,11 +183,11 @@ class MtaApi
     {
         $params = [
             'app_id' => $this->_app_id,
-            'page' => $page,
+            'page'   => $page,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_REALTIME , $params);
+        return $this->_request(self::CTR_REALTIME, $params);
     }
 
     /**
@@ -184,16 +196,16 @@ class MtaApi
      * @param $endDate
      * @return array|mixed
      */
-    public function compareData($startDate , $endDate)
+    public function compareData($startDate, $endDate)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
+            'end_date'   => $endDate,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_COMPARE , $params);
+        return $this->_request(self::CTR_COMPARE, $params);
     }
 
     /**
@@ -203,17 +215,17 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function getUserPortrait($startDate , $endDate , $idx)
+    public function getUserPortrait($startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::USER_PORTRAIT , $params);
+        return $this->_request(self::USER_PORTRAIT, $params);
     }
 
     /**
@@ -224,18 +236,18 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function areaData($typeIds , $startDate , $endDate , $idx)
+    public function areaData($typeIds, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'type_ids' => $typeIds,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
+            'type_ids'   => $typeIds,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_AREA_API , $params);
+        return $this->_request(self::CTR_AREA_API, $params);
     }
 
     /**
@@ -246,18 +258,18 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function provinceData($typeIds , $startDate , $endDate , $idx)
+    public function provinceData($typeIds, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'type_ids' => $typeIds,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
+            'type_ids'   => $typeIds,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_PROVINCE_API , $params);
+        return $this->_request(self::CTR_PROVINCE_API, $params);
     }
 
     /**
@@ -268,18 +280,18 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function operatorData($typeIds , $startDate , $endDate , $idx)
+    public function operatorData($typeIds, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'type_ids' => $typeIds,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
+            'type_ids'   => $typeIds,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_OPERATOR_API , $params);
+        return $this->_request(self::CTR_OPERATOR_API, $params);
     }
 
     /**
@@ -290,18 +302,18 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function paraData($typeId , $startDate , $endDate , $idx)
+    public function paraData($typeId, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'type_id' => $typeId,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
+            'type_id'    => $typeId,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_PARA_API , $params);
+        return $this->_request(self::CTR_PARA_API, $params);
     }
 
     /**
@@ -313,19 +325,19 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function paraContentData($typeId , $typeContents , $startDate , $endDate , $idx)
+    public function paraContentData($typeId, $typeContents, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
-            'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'type_id' => $typeId,
+            'app_id'        => $this->_app_id,
+            'start_date'    => $startDate,
+            'end_date'      => $endDate,
+            'idx'           => $idx,
+            'type_id'       => $typeId,
             'type_contents' => $typeContents,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_PARA_API , $params);
+        return $this->_request(self::CTR_PARA_API, $params);
     }
 
     /**
@@ -336,18 +348,18 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function pageData($urls , $startDate , $endDate , $idx)
+    public function pageData($urls, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'urls' => $urls,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
+            'urls'       => $urls,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_PAGE_API , $params);
+        return $this->_request(self::CTR_PAGE_API, $params);
     }
 
     /**
@@ -359,19 +371,19 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function pageSpeedData($type , $typeContents , $startDate , $endDate , $idx)
+    public function pageSpeedData($type, $typeContents, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
-            'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'type' => $type,
+            'app_id'        => $this->_app_id,
+            'start_date'    => $startDate,
+            'end_date'      => $endDate,
+            'idx'           => $idx,
+            'type'          => $type,
             'type_contents' => $typeContents,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_SPEED_API , $params);
+        return $this->_request(self::CTR_SPEED_API, $params);
     }
 
     /**
@@ -380,16 +392,16 @@ class MtaApi
      * @param $endDate
      * @return array|mixed
      */
-    public function depthData($startDate , $endDate)
+    public function depthData($startDate, $endDate)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
+            'end_date'   => $endDate,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_DEPTH_API , $params);
+        return $this->_request(self::CTR_DEPTH_API, $params);
     }
 
     /**
@@ -400,18 +412,18 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function sourceData($urls , $startDate , $endDate , $idx)
+    public function sourceData($urls, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'urls' => $urls,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
+            'urls'       => $urls,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_SOURCE_API , $params);
+        return $this->_request(self::CTR_SOURCE_API, $params);
     }
 
     /**
@@ -421,17 +433,17 @@ class MtaApi
      * @param $endDate
      * @return array|mixed
      */
-    public function landData($urls , $startDate , $endDate)
+    public function landData($urls, $startDate, $endDate)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'urls' => $urls,
+            'end_date'   => $endDate,
+            'urls'       => $urls,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_LAND_API , $params);
+        return $this->_request(self::CTR_LAND_API, $params);
     }
 
     /**
@@ -441,17 +453,17 @@ class MtaApi
      * @param $endDate
      * @return array|mixed
      */
-    public function exitData($urls , $startDate , $endDate)
+    public function exitData($urls, $startDate, $endDate)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'urls' => $urls,
+            'end_date'   => $endDate,
+            'urls'       => $urls,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_PAGEEXIT_API , $params);
+        return $this->_request(self::CTR_PAGEEXIT_API, $params);
     }
 
     /**
@@ -462,18 +474,18 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function customData($custom , $startDate , $endDate , $idx)
+    public function customData($custom, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'custom' => $custom,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
+            'custom'     => $custom,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_CUSTOM_API , $params);
+        return $this->_request(self::CTR_CUSTOM_API, $params);
     }
 
     /**
@@ -484,18 +496,18 @@ class MtaApi
      * @param $idx
      * @return array|mixed
      */
-    public function adTagData($adTags , $startDate , $endDate , $idx)
+    public function adTagData($adTags, $startDate, $endDate, $idx)
     {
         $params = [
-            'app_id' => $this->_app_id,
+            'app_id'     => $this->_app_id,
             'start_date' => $startDate,
-            'end_date' => $endDate,
-            'idx' => $idx,
-            'adtags' => $adTags,
+            'end_date'   => $endDate,
+            'idx'        => $idx,
+            'adtags'     => $adTags,
         ];
 
         $params['sign'] = $this->_makeSign($params);
-        return $this->_request(self::CTR_ADTAG_API , $params);
+        return $this->_request(self::CTR_ADTAG_API, $params);
     }
 
     /**
@@ -504,11 +516,11 @@ class MtaApi
      * @param $params 接口参数
      * @return array|mixed
      */
-    private function _request($url , $params)
+    private function _request($url, $params)
     {
-        $result = $this->_httpClient->request('GET' , $url , ['query' => $params])->getBody()->getContents();
-        if($result){
-            return json_decode($result , true);
+        $result = $this->_httpClient->request('GET', $url, ['query' => $params])->getBody()->getContents();
+        if ($result) {
+            return json_decode($result, true);
         }
         return [];
     }
@@ -517,11 +529,12 @@ class MtaApi
      * 封装签名sign
      * @param $params 需要发送的数据包
      */
-    private function _makeSign($params){
+    private function _makeSign($params)
+    {
         $secret = $this->_secret_key;
         ksort($params);
         foreach ($params as $key => $value) {
-            $secret.= $key.'='.$value;
+            $secret .= $key . '=' . $value;
         }
         return md5($secret);
     }

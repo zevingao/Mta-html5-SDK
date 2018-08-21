@@ -15,7 +15,7 @@
 require 'vendor/autoload.php';
 use Loliko\MtaApi;
 
-$mmd = new MtaApi(你的mta应用appid , '你的mta应用secret');
+$mmd = MtaApi::getInstance(你的mta应用appid , '你的mta应用secret');
 print_r($mmd->historyData('2017-11-06' , '2017-11-07' , 'uv'));
 
 ```
